@@ -1,0 +1,42 @@
+body{
+    background-color: #121212;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+h1{
+    text-align: center;
+    color: white;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+input{
+    width: 400px;
+    padding: 10px;
+}
+
+button{
+    padding: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+    background-color: aqua;
+    width: 100%;
+}
+
+button:hover{
+    transition: background-color 0.5s ease;
+    color: white;
+    font-weight: bold;
+}
