@@ -20,8 +20,10 @@ public static class ShortenerUrl
 
 
     public static async Task<IResult> GetOriginalUrl(string id, ShortenerDb db)
-    {
-        return await db.Urls.FindAsync(id) is UrlInput urlInput ? TypedResults.Ok(urlInput) : TypedResults.NotFound();
+    {   
+        return await db.Urls.FindAsync(id) is UrlInput urlInput
+        ? TypedResults.Redirect(urlInput.RedirectUrl)
+        : TypedResults.NotFound();
     }
 
 
@@ -37,7 +39,7 @@ public static class ShortenerUrl
         }
 
         var shortKey = ServiceExtension.GenerateRandomKey();
-        var shortUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/{shortKey}";
+        var shortUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/shortener/{shortKey}";
 
 
         var urlShorter = new UrlInput()
@@ -48,7 +50,6 @@ public static class ShortenerUrl
             CreatedAt = DateTimeOffset.UtcNow,
             ExpiratesAt = DateTimeOffset.UtcNow.AddDays(1),
             LastVisited = DateTimeOffset.Now
-
         };
 
         db.Urls.Add(urlShorter);
